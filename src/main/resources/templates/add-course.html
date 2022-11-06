@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new course</title>
+</head>
+<body>
+<h1>Add a new course</h1>
+<br/>
+<div>
+<form th:action="@{'/courses/add'}" th:method="POST">
+    <div class="form-group">
+        <label for="name">Course name</label>
+        <input type="text"
+               class="form-control"
+               id="name"
+               name="name"
+               th:value="(${course} != null ? ${course.getName()} : '')"
+               required
+               placeholder="Enter product name">
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text"
+               class="form-control"
+               id="description"
+               name="description"
+               th:value="(${course} != null ? ${course.getDescription()} : '')"
+               placeholder="Description">
+    </div>
+    <div class="form-group">
+        <label>Teacher</label>
+        <select name="id" class="form-control">
+            <option th:if="${course} != null"
+                    th:selected="${course.getTeacher() != null && course.getTeacher().getId() == teacher.getId()}"
+                    th:each="teacher : ${teachers}"
+                    th:value="${teacher.getId()}"
+                    th:text="${teacher.getName()} + ' ' + ${teacher.getSurname()}">
+            </option>
+            <option th:if="${course} == null"
+                    th:each="teacher : ${teachers}"
+                    th:value="${teacher.getId()}"
+                    th:text="${teacher.getName()} + ' ' + ${teacher.getSurname()}">
+            </option>
+        </select>
+    </div>
+<div style="color: red; font-weight: bolder" th:if="${hasError}" th:text="${error}"></div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a type="button" class="btn btn-primary" href="/courses">Back</a>
+</form>
+</div>
+</body>
+</html>
