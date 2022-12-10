@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/courses/fullSearch}">
+    <label for="search">Search:</label><input type="text" id="search" name="searchValue">
+    <input type="submit" value="Submit">
+</form>
+
+<div th:if = "${searchedStudents} != null"t>
+    <div th:each="student : ${searchedStudents}">
+        <input type="radio" name="size" th:value="${student.getUsername()}">
+        <th:block th:text="${student.getName()}"></th:block>
+        <th:block th:text="${student.getSurname()}"></th:block>
+    </div>
+</div>
+
+<div th:if = "${searchedCourses} != null"t>
+    <div th:each="course : ${searchedCourses}">
+        <input type="radio" name="size" th:value="${course.getName()}">
+        <th:block th:text="${course.getName()}"></th:block>
+    </div>
+</div>
+
+
+</body>
+</html>

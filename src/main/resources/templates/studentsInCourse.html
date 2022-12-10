@@ -12,14 +12,15 @@
 <section>
     <div th:text = "${course.getName()}"></div>
     <ul>
-        <li th:each = "student : ${course.getStudents()}">
-            <th:block th:text="${student.getName()}"></th:block>
-            <th:block th:text="${student.getSurname()}"></th:block>
-            <span>(</span>
-            <th:block th:text="${student.getUsername()}"></th:block>
-            <span>)</span>
+        <li th:each = "grade: ${grades}">
+            <th:block th:text="${grade.getStudent().getName()}+' '+
+               ${grade.getStudent().getSurname()}+' (' +
+                ${grade.getStudent().getUsername()}"></th:block>
+            <th:block th:text="(${grade.getGrade()!=null}?${grade.getGrade()}:'')"></th:block>
+            <th:block th:text="(${grade.getTimestamp()!=null}?${grade.getTimestamp()}:'')"></th:block>
         </li>
     </ul>
+    <a href="/addGrade">Add Grade</a>
     <a href="/courses">Back</a>
 </section>
 

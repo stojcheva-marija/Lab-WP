@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Grade</title>
+</head>
+<body>
+<form th:action="@{/addGrade}" method="POST">
+    <div>
+        <label>Student</label>
+        <select name="student">
+
+            <option        th:each="student : ${students}"
+                    th:value="${student.getUsername()}"
+                    th:text="${student.getSurname()}+' '+${student.getName()}">
+            </option>
+<!--         <option   th:each="grade : ${grades}"-->
+<!--                   th:value="${grade.getStudent().getUsername()}"-->
+<!--            th:text= "${grade.getStudent().getName() + ' '+ grade.getStudent().getSurname()}">-->
+<!--            </option>-->
+        </select>
+    </div>
+    <div>
+        <label>Grade</label>
+        <select name="grade">
+            <option value="F">F</option>
+            <option value="F">E</option>
+            <option value="D">D</option>
+            <option value="C">C</option>
+            <option value="B">B</option>
+            <option value="A">A</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Teacher</label>
+        <input type="datetime-local" name="dateTime">
+    </div>
+
+    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+    <a type="button" class="btn btn-primary" href="/StudentEnrollmentSummary">Back</a>
+</form>
+
+</body>
+</html>

@@ -33,4 +33,5 @@ public class ListStudentServlet extends HttpServlet {
         context.setVariable("students", studentService.listAll());
         springTemplateEngine.process("listStudents.html", context, resp.getWriter());
     }
+
 }
