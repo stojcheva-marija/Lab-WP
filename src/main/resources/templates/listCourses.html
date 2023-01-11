@@ -13,6 +13,7 @@
 <body>
 <header>
     <h1>Courses List</h1>
+    <a href="/login">Log in</a>
 </header>
 <main>
     <h2>Choose course:</h2>
@@ -25,19 +26,23 @@
                            th:text="${course.getName()}">
                 </td>
                 <td>
-                    <a th:href="@{'/courses/delete/{id}' (id=${course.getCourseId()})}">Delete</a>
-                    <a th:href="@{'/courses/edit-form/{id}' (id=${course.getCourseId()})}">Edit</a>
+                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a class="delete-course" th:href="@{'/courses/delete/{id}' (id=${course.getCourseId()})}">Delete</a>
+                    <a class="edit-course" th:href="@{'/courses/edit-form/{id}' (id=${course.getCourseId()})}">Edit</a>
+                    </th:block>
                 </td>
             </tr>
             </tbody>
         </table>
         <br/>
         <div>
-            <a th:href="@{'/courses/add-form'}" th:method="POST">Add a new course</a>
+            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+            <a th:href="@{'/courses/add-form'}" th:method="POST" class="add-course">Add a new course</a>
+            </th:block>
         </div>
         <br/>
         <div style="color: red; font-weight: bolder" th:if="${hasError}" th:text="${error}"></div>
-        <input type="submit" value="Submit">
+        <input type="submit" class="submit" value="Submit">
     </form>
 
 </main>

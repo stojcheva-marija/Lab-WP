@@ -8,6 +8,7 @@ import mk.ukim.finki.wp.lab.service.CourseService;
 import mk.ukim.finki.wp.lab.service.GradeService;
 import mk.ukim.finki.wp.lab.service.StudentService;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +19,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 @AllArgsConstructor
 @Controller
-@RequestMapping("/addGrade")
-public class AddGradeController {
+@RequestMapping(("/addGrade"))
+public class GradeController {
 
     private final StudentService studentService;
     private final CourseService courseService;

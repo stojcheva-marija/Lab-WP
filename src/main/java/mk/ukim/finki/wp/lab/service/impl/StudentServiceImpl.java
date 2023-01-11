@@ -24,17 +24,25 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> searchByNameOrSurname(String text) {
-        return studentRepository.findAll().stream().filter(s -> s.getName().toLowerCase().contains(text.toLowerCase())
-        || s.getSurname().toLowerCase().contains(text.toLowerCase())).collect(Collectors.toList());
+//        return studentRepository.findAll().stream().filter(s -> s.getName().toLowerCase().contains(text.toLowerCase())
+//        || s.getSurname().toLowerCase().contains(text.toLowerCase())).collect(Collectors.toList());
+        return studentRepository.findStudentByNameContainingIgnoreCaseOrSurnameContainingIgnoreCase(text,text);
     }
 
     @Override
     public Student findByUsername(String text) {
-        return studentRepository.findStudentByUsername(text);
+        return studentRepository.findByUsername(text);
     }
 
     @Override
     public Student save(String username, String password, String name, String surname) {
+        if(username == null || username.isEmpty() || password==null || password.isEmpty()
+        || name == null || name.isEmpty() || surname==null || surname.isEmpty())
+            throw new IllegalArgumentException("Bad credentials!");
+
+        if(studentRepository.findByUsername(username) != null)
+            throw new IllegalStateException("A user with that username already exists!");
+
         Student student = new Student(username,password,name,surname);
         studentRepository.save(student);
         return student;

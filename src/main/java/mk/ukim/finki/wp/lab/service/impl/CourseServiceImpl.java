@@ -96,8 +96,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Course> searchByCourseNameorDescription(String search) {
-        return courseRepository.findAll().stream()
-                .filter(c -> c.getDescription().toLowerCase().equals(search.toLowerCase()) ||
-                        c.getName().toLowerCase().equals(search.toLowerCase())).collect(Collectors.toList());
+//        return courseRepository.findAll().stream()
+//                .filter(c -> c.getDescription().toLowerCase().equals(search.toLowerCase()) ||
+//                        c.getName().toLowerCase().equals(search.toLowerCase())).collect(Collectors.toList());
+        return courseRepository.findCourseByNameDescriptionTeacher(search);
     }
 }

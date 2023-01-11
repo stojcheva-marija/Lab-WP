@@ -2,12 +2,15 @@ package mk.ukim.finki.wp.lab.web.controller;
 
 import lombok.AllArgsConstructor;
 import mk.ukim.finki.wp.lab.model.Course;
+import mk.ukim.finki.wp.lab.model.Grade;
 import mk.ukim.finki.wp.lab.model.Student;
 import mk.ukim.finki.wp.lab.model.Type;
 import mk.ukim.finki.wp.lab.model.exception.CourseAlreadyExistsException;
+import mk.ukim.finki.wp.lab.repository.jpa.GradeRepository;
 import mk.ukim.finki.wp.lab.service.CourseService;
 import mk.ukim.finki.wp.lab.service.StudentService;
 import mk.ukim.finki.wp.lab.service.TeacherService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +30,7 @@ public class CourseController{
     private final CourseService courseService;
     private final TeacherService teacherService;
     private final StudentService studentService;
+    private final GradeRepository gradeRepository;
 
     @GetMapping
     public String getCoursesPage(HttpServletRequest req, @RequestParam(required = false) String error, Model model){
@@ -88,12 +92,16 @@ public class CourseController{
         return "redirect:/courses";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping ("/delete/{id}")
     public String deleteCourse(@PathVariable Long id){
+        List<Grade> c = gradeRepository.findByCourse_CourseId(id);
+        c.stream().forEach(g -> gradeRepository.deleteById(g.getId()));
         this.courseService.deleteById(id);
         return "redirect:/courses";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/edit-form/{id}")
     public String getEditCoursePage(@PathVariable Long id, Model model){
         Course course = this.courseService.getCourseById(id);
@@ -107,6 +115,7 @@ public class CourseController{
         return "add-course";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/add-form")
     public String getAddCoursePage(Model model){
         model.addAttribute("teachers", teacherService.findAll());

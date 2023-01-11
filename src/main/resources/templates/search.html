@@ -22,6 +22,9 @@
     <div th:each="course : ${searchedCourses}">
         <input type="radio" name="size" th:value="${course.getName()}">
         <th:block th:text="${course.getName()}"></th:block>
+        <th:block th:text="${course.getDescription()}"></th:block>
+        <th:block th:text="${course.getTeacher().getFullName().name + ' ' + course.getTeacher().getFullName().surname}"
+
     </div>
 </div>
 

@@ -14,5 +14,7 @@ public interface GradeRepository extends JpaRepository<Grade,Long> {
     List<Grade> getGradesByCourseCourseId(Long id);
     Grade getGradeByStudentAndCourse(Student student, Course course);
     List<Grade> getGradesByTimestampAfterAndTimestampBefore(LocalDateTime after, LocalDateTime before);
+    List<Grade> findByCourse_CourseId(Long id);
+
 
 }

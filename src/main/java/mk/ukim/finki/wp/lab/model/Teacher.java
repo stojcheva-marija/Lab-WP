@@ -17,12 +17,13 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Convert(converter = TeacherFullNameConverter.class)
-    private TeacherFullName teacherFullName;
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    //@Convert(converter = TeacherFullNameConverter.class)
+    @Embedded
+    private TeacherFullName fullName;
+
     private LocalDate dateOfEmployment;
 
     public Teacher(TeacherFullName teacherFullName) {
-        this.teacherFullName = teacherFullName;
+        this.fullName = teacherFullName;
     }
 }

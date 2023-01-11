@@ -1,5 +1,6 @@
 package mk.ukim.finki.wp.lab.service.impl;
 
+import mk.ukim.finki.wp.lab.data.TeacherFullName;
 import mk.ukim.finki.wp.lab.model.Teacher;
 //import mk.ukim.finki.wp.lab.repository.impl.TeacherRepositoryImpl;
 import mk.ukim.finki.wp.lab.repository.jpa.TeacherRepository;
@@ -27,5 +28,11 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Optional<Teacher> findById(Long id) {
         return teacherRepository.findById(id);
+    }
+
+    @Override
+    public Teacher save(String name, String surname) {
+        TeacherFullName fullName = new TeacherFullName(name,surname);
+        return teacherRepository.save(new Teacher(fullName));
     }
 }

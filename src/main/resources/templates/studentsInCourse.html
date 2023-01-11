@@ -15,12 +15,14 @@
         <li th:each = "grade: ${grades}">
             <th:block th:text="${grade.getStudent().getName()}+' '+
                ${grade.getStudent().getSurname()}+' (' +
-                ${grade.getStudent().getUsername()}"></th:block>
+                ${grade.getStudent().getUsername()} + ') '"></th:block>
             <th:block th:text="(${grade.getGrade()!=null}?${grade.getGrade()}:'')"></th:block>
-            <th:block th:text="(${grade.getTimestamp()!=null}?${grade.getTimestamp()}:'')"></th:block>
+            <th:block th:text="(${grade.getTimestamp()!=null}?${#temporals.format(grade.timestamp, 'dd-MM-yyyy HH:mm:ss')}:'')"></th:block>
         </li>
     </ul>
+    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
     <a href="/addGrade">Add Grade</a>
+    </th:block>
     <a href="/courses">Back</a>
 </section>
 

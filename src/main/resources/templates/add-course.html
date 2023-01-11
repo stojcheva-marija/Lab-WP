@@ -34,12 +34,12 @@
                     th:selected="${course.getTeacher() != null && course.getTeacher().getId() == teacher.getId()}"
                     th:each="teacher : ${teachers}"
                     th:value="${teacher.getId()}"
-                    th:text="${teacher.getTeacherFullName().getName()}+' '+${teacher.getTeacherFullName().getSurname()}">
+                    th:text="${teacher.getFullName().name}+' '+${teacher.getFullName().surname}">
             </option>
             <option th:if="${course} == null"
                     th:each="teacher : ${teachers}"
                     th:value="${teacher.getId()}"
-                    th:text="${teacher.getTeacherFullName().getName()}+' '+${teacher.getTeacherFullName().getSurname()}">
+                    th:text="${teacher.getFullName().name}+' '+${teacher.getFullName().surname}">
             </option>
         </select>
     </div>
@@ -61,7 +61,7 @@
     </div>
     <input type="hidden" name="courseExists" th:value="${course}">
 <div style="color: red; font-weight: bolder" th:if="${hasError}" th:text="${error}"></div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary ">Submit</button>
     <a type="button" class="btn btn-primary" href="/courses">Back</a>
 </form>
 </div>
